@@ -1,298 +1,551 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>원우영 - 자기소개 & 목표</title>
-    <style>
-        /* 기본 스타일 초기화 */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>원우영 | 건축 & 비전 대시보드</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        /* 전체 배경: 초록색과 연두색 그라데이션 */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #1b5e20, #4caf50, #81c784, #aed581);
-            background-attachment: fixed;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 28px 16px;
-            color: #2d3748;
-            gap: 18px; /* 카드 사이 간격 */
-        }
-
-        /* 공통 카드 스타일 */
-        .card-box {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            width: 100%;
-            max-width: 380px;
-            border-radius: 24px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        /* 1. D-Day 카운터 카드 */
-        .dday-card {
-            background: linear-gradient(135deg, #2e7d32, #43a047);
-            color: #ffffff;
-            width: 100%;
-            max-width: 380px;
-            padding: 24px 20px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(27, 94, 32, 0.3);
-        }
-
-        .dday-number {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 4px;
-            letter-spacing: -1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
-
-        .dday-label {
-            font-size: 15px;
-            font-weight: 600;
-            opacity: 0.95;
-        }
-
-        /* 2. 자기소개 카드 */
-        .intro-card {
-            padding: 32px 24px;
-        }
-
-        .emoji {
-            font-size: 64px;
-            margin-bottom: 16px;
-            line-height: 1;
-        }
-
-        .name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1b4332;
-            margin-bottom: 8px;
-        }
-
-        .bio {
-            font-size: 15px;
-            color: #4a5568;
-            line-height: 1.5;
-            margin-bottom: 24px;
-            word-break: keep-all;
-        }
-
-        .tags-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 28px;
-        }
-
-        .tag {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid #c8e6c9;
-        }
-
-        .link-btn {
-            display: block;
-            width: 100%;
-            background-color: #2e7d32;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 13px 16px;
-            border-radius: 14px;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
-        }
-
-        .link-btn:hover {
-            background-color: #1b5e20;
-            transform: translateY(-1px);
-        }
-
-        /* 3. 만다라트 목표판 (12개 칸) */
-        .mandalart-card {
-            padding: 24px 18px;
-        }
-
-        .mandalart-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1b4332;
-            margin-bottom: 4px;
-        }
-
-        .mandalart-subtitle {
-            font-size: 13px;
-            color: #718096;
-            margin-bottom: 18px;
-        }
-
-        /* 4열 x 3행 = 12칸 격자 구조 */
-        .mandalart-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            width: 100%;
-        }
-
-        .mandalart-cell {
-            aspect-ratio: 1 / 1; /* 정사각형 유지 */
-            background-color: #f1f8e9;
-            border: 1.5px solid #dedede;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4px;
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #2e7d32;
-            line-height: 1.3;
-            word-break: keep-all;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-
-        .mandalart-cell:focus {
-            background-color: #ffffff;
-            border-color: #43a047;
-            box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.3);
-        }
-
-        /* 가운데 핵심 목표 칸 (강조) */
-        .mandalart-cell.center-cell {
-            background: linear-gradient(135deg, #2e7d32, #43a047);
-            color: #ffffff;
-            border-color: #1b5e20;
-            font-size: 12.5px;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
-        }
-
-        .mandalart-cell.center-cell:focus {
-            background: #1b5e20;
-            box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.4);
-        }
-    </style>
-
-    <script>
-        // ==========================================
-        // 🛠️ [설정] D-day 목표 날짜 설정
-        const targetDate = "2027-11-18";
-        // ==========================================
-
-        function updateDday() {
-            const today = new Date();
-            const target = new Date(targetDate);
-            
-            today.setHours(0, 0, 0, 0);
-            target.setHours(0, 0, 0, 0);
-            
-            const diffTime = target - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            const ddayElement = document.getElementById("dday-number");
-            if (diffDays > 0) {
-                ddayElement.textContent = `D-${diffDays}`;
-            } else if (diffDays === 0) {
-                ddayElement.textContent = `D-DAY`;
-            } else {
-                ddayElement.textContent = `D+${Math.abs(diffDays)}`;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0a2215',
+              deep: '#133a22',
+              mid: '#235e38',
+              accent: '#4ade80',
+              lime: '#a3e635',
+              neon: '#84cc16',
+              glow: '#bef264'
             }
+          },
+          fontFamily: {
+            sans: ['Pretendard', 'Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 커스텀 배경 그라데이션 */
+    body {
+      background: linear-gradient(135deg, #071c10 0%, #0d2e1b 30%, #1a5230 70%, #2f7a46 100%);
+      background-attachment: fixed;
+      font-family: 'Pretendard', sans-serif;
+      color: #f0fdf4;
+      overflow-x: hidden;
+    }
+
+    /* 건축 도면 그리드 노이즈 패턴 서브레이어 */
+    .arch-grid-bg {
+      background-image: 
+        radial-gradient(rgba(163, 230, 53, 0.12) 1px, transparent 0),
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px, 40px 40px, 40px 40px;
+    }
+
+    /* 글래스모피즘 효과 */
+    .glass-card {
+      background: rgba(15, 45, 28, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(163, 230, 53, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35),
+                  inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(163, 230, 53, 0.5);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45),
+                  0 0 25px rgba(163, 230, 53, 0.25);
+    }
+
+    /* 비대칭 및 유기적 도형 클립패스/보더 레이아웃 */
+    
+    /* 1. 아치/돔 형상 (Profile Card) */
+    .shape-arch {
+      border-radius: 180px 180px 32px 32px;
+    }
+
+    /* 2. 다이아몬드/다각 클립패스 (D-Day Frame) */
+    .shape-hexagon {
+      clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
+    }
+
+    .shape-diamond {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    /* 3. 대각선 비대칭 컷 (Wave Badge) */
+    .shape-asym-capsule {
+      border-radius: 9999px 40px 9999px 40px;
+    }
+
+    /* 4. 나뭇잎 & 유기적 조약돌 모양 (Mandalart Cells) */
+    .shape-leaf-1 { border-radius: 4px 60px 4px 60px; }
+    .shape-leaf-2 { border-radius: 60px 4px 60px 4px; }
+    .shape-pebble-1 { border-radius: 40px 60px 30px 70px; }
+    .shape-pebble-2 { border-radius: 70px 30px 60px 40px; }
+    .shape-teardrop { border-radius: 80px 80px 10px 80px; }
+    .shape-arch-small { border-radius: 50px 50px 12px 12px; }
+
+    /* 부유 애니메이션 */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 15px rgba(163, 230, 53, 0.4)); }
+      50% { filter: drop-shadow(0 0 35px rgba(163, 230, 53, 0.8)); }
+    }
+    .glow-pulse {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    /* 커스텀 포커스 및 오프셋 테두리 */
+    .editable-cell:focus {
+      outline: none;
+      background: rgba(35, 94, 56, 0.85);
+      box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.8);
+    }
+  </style>
+</head>
+<body class="min-h-screen arch-grid-bg relative text-slate-100 pb-16 pt-8 px-4 sm:px-6 lg:px-8">
+
+  <!-- 배경 오라 장식 (Architectural Ambient Light) -->
+  <div class="fixed -top-40 -left-40 w-96 h-96 bg-brand-lime/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="fixed -bottom-40 -right-40 w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none"></div>
+
+  <main class="max-w-6xl mx-auto space-y-10 relative z-10">
+
+    <!-- HEADER / INTRO CAPSULE (헤더 상단 비대칭 캡슐) -->
+    <header class="flex flex-col md:flex-row items-center justify-between gap-6 p-6 glass-card shape-asym-capsule transition-all duration-300">
+      <div class="flex items-center gap-4 pl-4">
+        <!-- 네온 기하학 인디케이터 -->
+        <div class="w-10 h-10 rounded-full bg-brand-lime/20 border-2 border-brand-lime flex items-center justify-center shadow-lg">
+          <i class="fa-solid fa-compass-drafting text-brand-lime text-xl"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-brand-lime opacity-90">Architectural Vision Dashboard</span>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">원우영 Portfolio & Goals</h1>
+        </div>
+      </div>
+
+      <!-- 우측 GitHub 링크 & 알림 버블 -->
+      <a href="https://github.com/nickkick921" target="_blank" rel="noopener noreferrer" 
+         class="group px-8 py-3.5 bg-brand-lime text-brand-dark font-bold rounded-full transition-all duration-300 hover:bg-brand-glow hover:scale-105 shadow-[0_0_20px_rgba(163,230,53,0.4)] flex items-center gap-3">
+        <i class="fa-brands fa-github text-xl transition-transform group-hover:rotate-12"></i>
+        <span>GitHub 방문하기</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+      </a>
+    </header>
+
+    <!-- TOP SECTION: PROFILE ARCH & HYBRID D-DAY CARD -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      
+      <!-- 1. PROFILE CARD (아치/돔 건축 형상) -->
+      <div class="lg:col-span-5 glass-card shape-arch p-8 flex flex-col items-center text-center transition-all duration-500 relative overflow-hidden group">
+        <!-- 아치 상단 오버레이 가이드 라인 (건축적 미감) -->
+        <div class="absolute top-0 inset-x-0 h-32 border-b border-brand-lime/20 rounded-t-[180px] pointer-events-none"></div>
+
+        <!-- 파도 이모지 아바타 (아치 프레임 + 부유 애니메이션) -->
+        <div class="relative mt-4 mb-6">
+          <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-t-full rounded-b-3xl bg-gradient-to-br from-brand-accent/30 to-brand-lime/20 border-2 border-brand-lime flex items-center justify-center text-6xl shadow-[0_0_30px_rgba(163,230,53,0.3)] glow-pulse">
+            <span class="inline-block animate-float">🌊</span>
+          </div>
+          <span class="absolute -bottom-2 right-2 px-3 py-1 bg-brand-dark/90 border border-brand-lime text-brand-lime text-xs rounded-full font-semibold">
+            HIGH SCHOOL
+          </span>
+        </div>
+
+        <h2 class="text-3xl font-extrabold text-white mb-2 tracking-wide">원우영</h2>
+        <p class="text-emerald-100 text-sm sm:text-base leading-relaxed max-w-xs mb-6 font-light">
+          건축물과 자연을 좋아하는<br><strong class="font-semibold text-brand-lime">고등학교 2학년</strong>입니다.
+        </p>
+
+        <!-- 태그 리스트 (유기적/물방울/캡슐 비대칭 배지) -->
+        <div class="flex flex-wrap justify-center gap-2.5 mt-auto pt-2">
+          <span class="px-4 py-2 bg-brand-deep/80 border border-emerald-500/30 text-emerald-200 text-xs sm:text-sm font-medium rounded-tl-xl rounded-br-xl hover:border-brand-lime transition-colors flex items-center gap-1.5">
+            ⚾ 야구
+          </span>
+          <span class="px-4 py-2 bg-brand-deep/80 border border-emerald-500/30 text-emerald-200 text-xs sm:text-sm font-medium rounded-tr-xl rounded-bl-xl hover:border-brand-lime transition-colors flex items-center gap-1.5">
+            🎤 노래
+          </span>
+          <span class="px-4 py-2 bg-brand-deep/80 border border-brand-lime/60 text-brand-lime text-xs sm:text-sm font-semibold rounded-full hover:bg-brand-lime/20 transition-all flex items-center gap-1.5 shadow-[0_0_10px_rgba(163,230,53,0.2)]">
+            🏛️ 건축
+          </span>
+        </div>
+      </div>
+
+      <!-- 2. D-DAY COUNTER & VISION STATEMENT (다이아몬드 & 육각형 모티프) -->
+      <div class="lg:col-span-7 flex flex-col gap-6 justify-between">
+        
+        <!-- D-DAY 카운터 (육각형 메인 프레임 & 3D 카운트) -->
+        <div class="glass-card p-8 rounded-[36px] relative overflow-hidden flex flex-col justify-center items-center text-center">
+          <!-- 비대칭 코너 건축 액센트 -->
+          <div class="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-brand-lime/60"></div>
+          <div class="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-brand-lime/60"></div>
+
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-lime/10 border border-brand-lime/30 text-brand-lime text-xs font-bold tracking-wider uppercase mb-3">
+            <i class="fa-solid fa-hourglass-half"></i> TARGET D-DAY (2027.11.18)
+          </div>
+
+          <h3 class="text-lg sm:text-xl font-medium text-emerald-200 mb-4">2028학년도 대학수학능력시험까지</h3>
+
+          <!-- D-DAY 수치 디스플레이 (육각 액센트 배지 안의 타이머) -->
+          <div class="my-2 flex items-center justify-center">
+            <div class="px-8 py-4 sm:px-12 sm:py-6 bg-gradient-to-r from-brand-deep via-emerald-900 to-brand-deep border-2 border-brand-lime rounded-2xl shadow-[0_0_35px_rgba(163,230,53,0.3)]">
+              <span id="d-day-counter" class="text-4xl sm:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-glow to-brand-lime">
+                D-000
+              </span>
+            </div>
+          </div>
+
+          <!-- 세부 시간 (일, 시, 분, 초 실시간 카운트) -->
+          <div id="d-day-detail" class="grid grid-cols-4 gap-2 sm:gap-4 mt-6 w-full max-w-md">
+            <div class="bg-black/30 p-2.5 rounded-xl border border-white/10 text-center">
+              <div id="time-days" class="text-lg sm:text-2xl font-bold text-brand-lime">00</div>
+              <div class="text-[10px] sm:text-xs text-emerald-300/70 uppercase">Days</div>
+            </div>
+            <div class="bg-black/30 p-2.5 rounded-xl border border-white/10 text-center">
+              <div id="time-hours" class="text-lg sm:text-2xl font-bold text-white">00</div>
+              <div class="text-[10px] sm:text-xs text-emerald-300/70 uppercase">Hours</div>
+            </div>
+            <div class="bg-black/30 p-2.5 rounded-xl border border-white/10 text-center">
+              <div id="time-minutes" class="text-lg sm:text-2xl font-bold text-white">00</div>
+              <div class="text-[10px] sm:text-xs text-emerald-300/70 uppercase">Mins</div>
+            </div>
+            <div class="bg-black/30 p-2.5 rounded-xl border border-white/10 text-center">
+              <div id="time-seconds" class="text-lg sm:text-2xl font-bold text-brand-accent">00</div>
+              <div class="text-[10px] sm:text-xs text-emerald-300/70 uppercase">Secs</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 안내 문구 배너 (유기적 웨이브 디자인) -->
+        <div class="glass-card p-5 rounded-[28px] flex items-center justify-between gap-4 border-l-4 border-l-brand-lime">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand-lime/20 flex items-center justify-center text-brand-lime flex-shrink-0">
+              <i class="fa-solid fa-pen-ruler"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-emerald-100/90 leading-snug">
+              아래의 <strong>12가지 비전 만다라트 셀</strong>을 직접 클릭하여 자유롭게 내용을 수정하세요. 입력 즉시 실시간으로 자동 저장됩니다.
+            </p>
+          </div>
+          <button id="reset-goals-btn" title="기본값 복원" class="text-xs px-3 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-800 text-emerald-300 border border-emerald-700/50 transition-colors flex-shrink-0">
+            <i class="fa-solid fa-rotate-left mr-1"></i> 초기화
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MANDALART GRID SECTION (다양한 유기적 도형 그리드) -->
+    <section class="space-y-6">
+      
+      <!-- 섹션 타이틀 & 디자인 컨셉 라벨 -->
+      <div class="flex items-center justify-between px-2">
+        <div class="flex items-center gap-3">
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white flex items-center gap-2">
+            <i class="fa-solid fa-shapes text-brand-lime"></i>
+            12-Goal Mandalart Grid
+          </h3>
+          <span class="text-xs px-3 py-1 rounded-full bg-brand-lime/10 text-brand-lime border border-brand-lime/30 hidden sm:inline-block">
+            Organic & Geometrical Shapes
+          </span>
+        </div>
+        <span class="text-xs text-emerald-300/60"><i class="fa-solid fa-floppy-disk mr-1"></i>Auto Saved</span>
+      </div>
+
+      <!-- 만다라트 12 셀 그리드 (비대칭 도형 혼합 레이아웃) -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        
+        <!-- CELL 1: 나뭇잎 Shape 1 -->
+        <div class="glass-card shape-leaf-1 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 01</span>
+          <div contenteditable="true" data-goal-id="1" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            매일 30분 영어 듣기
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 2: 조약돌 Pebble 1 -->
+        <div class="glass-card shape-pebble-1 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 02</span>
+          <div contenteditable="true" data-goal-id="2" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            수학 오답노트
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 3: 눈물방울 Teardrop Shape -->
+        <div class="glass-card shape-teardrop p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 03</span>
+          <div contenteditable="true" data-goal-id="3" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            주 3회 운동
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 4: 나뭇잎 Shape 2 -->
+        <div class="glass-card shape-leaf-2 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 04</span>
+          <div contenteditable="true" data-goal-id="4" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            독서 월 2권
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 5: 소형 아치 Arch-Small -->
+        <div class="glass-card shape-arch-small p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 05</span>
+          <div contenteditable="true" data-goal-id="5" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            과학 동아리 발표
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- ★ CENTER ULTIMATE GOAL (핵심 중앙 목표: 육각 스타버스트 돔 카드) ★ -->
+        <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gradient-to-br from-brand-deep via-emerald-800 to-brand-dark p-6 rounded-[40px] border-2 border-brand-lime shadow-[0_0_40px_rgba(163,230,53,0.35)] flex flex-col justify-between relative overflow-hidden transition-all duration-500 hover:scale-[1.02] group">
+          <!-- 스타버스트 라이트 오프셋 패턴 -->
+          <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-lime/20 rounded-full blur-2xl pointer-events-none"></div>
+          
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 rounded-full bg-brand-lime text-brand-dark text-xs font-black tracking-wider uppercase flex items-center gap-1 shadow-md">
+              <i class="fa-solid fa-star text-amber-900"></i> CENTER GOAL
+            </span>
+            <i class="fa-solid fa-landmark-dome text-brand-lime text-2xl opacity-80"></i>
+          </div>
+
+          <div class="my-4 text-center px-2">
+            <label class="block text-[11px] text-brand-lime/80 font-medium mb-1">최종 핵심 목표</label>
+            <div contenteditable="true" data-goal-id="center" class="editable-cell text-xl sm:text-2xl font-black text-white p-2 rounded-xl border border-brand-lime/40 bg-black/20 tracking-tight" spellcheck="false">
+              건축학과 진학
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-emerald-200/80 pt-2 border-t border-brand-lime/20">
+            <span><i class="fa-solid fa-compass mr-1"></i>원우영 비전 모듈</span>
+            <span class="text-brand-lime font-bold">FOCUS</span>
+          </div>
+        </div>
+
+        <!-- CELL 6: 조약돌 Pebble 2 -->
+        <div class="glass-card shape-pebble-2 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 06</span>
+          <div contenteditable="true" data-goal-id="6" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            7시간 수면
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 7: 나뭇잎 Shape 1 -->
+        <div class="glass-card shape-leaf-1 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 07</span>
+          <div contenteditable="true" data-goal-id="7" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            봉사활동 20시간
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 8: 눈물방울 Teardrop Shape -->
+        <div class="glass-card shape-teardrop p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 08</span>
+          <div contenteditable="true" data-goal-id="8" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            코딩 포트폴리오
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 9: 소형 아치 Arch-Small -->
+        <div class="glass-card shape-arch-small p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 09</span>
+          <div contenteditable="true" data-goal-id="9" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            입시 모의고사 분석
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 10: 조약돌 Pebble 1 -->
+        <div class="glass-card shape-pebble-1 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 10</span>
+          <div contenteditable="true" data-goal-id="10" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            스케치업 모델링
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+        <!-- CELL 11: 나뭇잎 Shape 2 -->
+        <div class="glass-card shape-leaf-2 p-5 min-h-[140px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative group">
+          <span class="text-[10px] font-bold text-brand-lime/70 tracking-widest uppercase">GOAL 11</span>
+          <div contenteditable="true" data-goal-id="11" class="editable-cell text-sm sm:text-base font-semibold text-emerald-50 my-auto p-1 rounded transition-colors" spellcheck="false">
+            건축 서적 탐독
+          </div>
+          <div class="text-right text-[10px] text-emerald-400/50 group-hover:text-brand-lime transition-colors">
+            <i class="fa-solid fa-pen text-[9px] mr-1"></i>수정 가능
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER / ARCHITECTURAL QUOTE (푸터 캡슐) -->
+    <footer class="glass-card shape-asym-capsule p-6 text-center text-xs text-emerald-200/70 space-y-2">
+      <p class="font-light italic">
+        "자연은 직선을 그리지 않으며, 건축은 그 자연 속에서 삶을 담아내는 그릇이다."
+      </p>
+      <div class="text-[11px] text-brand-lime/80 font-medium pt-1">
+        © 2026 Woo Young Won. All architectural dreams & goals reserved.
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT: D-DAY TIMER & REAL-TIME LOCALSTORAGE LOGIC -->
+  <script>
+    // 초기 기본 데이터 정의
+    const DEFAULT_GOALS = {
+      'center': '건축학과 진학',
+      '1': '매일 30분 영어 듣기',
+      '2': '수학 오답노트',
+      '3': '주 3회 운동',
+      '4': '독서 월 2권',
+      '5': '과학 동아리 발표',
+      '6': '7시간 수면',
+      '7': '봉사활동 20시간',
+      '8': '코딩 포트폴리오',
+      '9': '입시 모의고사 분석',
+      '10': '스케치업 모델링',
+      '11': '건축 서적 탐독'
+    };
+
+    // DOM 로드 완료 시 실행
+    document.addEventListener('DOMContentLoaded', () => {
+      initDDayTimer();
+      initMandalartCells();
+      initResetButton();
+    });
+
+    /* 1. D-Day 계산 및 실시간 시계 업데이트 */
+    function initDDayTimer() {
+      // 수능 목표일: 2027년 11월 18일
+      const targetDate = new Date('2027-11-18T00:00:00+09:00');
+
+      function updateCounter() {
+        const now = new Date();
+        const diffMs = targetDate - now;
+
+        if (diffMs <= 0) {
+          document.getElementById('d-day-counter').textContent = 'D-DAY!';
+          document.getElementById('time-days').textContent = '00';
+          document.getElementById('time-hours').textContent = '00';
+          document.getElementById('time-minutes').textContent = '00';
+          document.getElementById('time-seconds').textContent = '00';
+          return;
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            updateDday();
+        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diffMs / (1000 * 60)) % 60);
+        const seconds = Math.floor((diffMs / 1000) % 60);
 
-            // 만다라트 12개 칸 저장 및 로드
-            const cells = document.querySelectorAll(".mandalart-cell");
-            cells.forEach((cell) => {
-                const index = cell.getAttribute("data-index");
-                const savedText = localStorage.getItem("mandalart_v2_cell_" + index);
+        document.getElementById('d-day-counter').textContent = `D-${days}`;
+        document.getElementById('time-days').textContent = String(days).padStart(2, '0');
+        document.getElementById('time-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('time-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('time-seconds').textContent = String(seconds).padStart(2, '0');
+      }
 
-                if (savedText !== null) {
-                    cell.innerText = savedText;
-                }
+      updateCounter();
+      setInterval(updateCounter, 1000);
+    }
 
-                cell.addEventListener("input", function () {
-                    localStorage.setItem("mandalart_v2_cell_" + index, cell.innerText);
-                });
-            });
+    /* 2. 만다라트 셀 불러오기 및 localStorage 동기화 */
+    function initMandalartCells() {
+      const cells = document.querySelectorAll('.editable-cell');
+
+      cells.forEach(cell => {
+        const goalId = cell.getAttribute('data-goal-id');
+        const storageKey = `mandalart_cell_${goalId}`;
+
+        // 저장된 값이 있으면 로드, 없으면 기본값 사용
+        const savedValue = localStorage.getItem(storageKey);
+        if (savedValue !== null && savedValue.trim() !== '') {
+          cell.innerText = savedValue;
+        } else if (DEFAULT_GOALS[goalId]) {
+          cell.innerText = DEFAULT_GOALS[goalId];
+        }
+
+        // 입력 시 자동 저장 (input 이벤트)
+        cell.addEventListener('input', () => {
+          localStorage.setItem(storageKey, cell.innerText);
         });
-    </script>
-</head>
-<body>
 
-    <!-- 1. D-Day 카운터 카드 -->
-    <div class="dday-card">
-        <div id="dday-number" class="dday-number">D-?</div>
-        <div class="dday-label">수능까지</div>
-    </div>
+        // 엔터 키 누를 때 줄바꿈 방지 및 포커스 해제 옵션
+        cell.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            cell.blur();
+          }
+        });
+      });
+    }
 
-    <!-- 2. 자기소개 카드 -->
-    <div class="card-box intro-card">
-        <div class="emoji">🌊</div>
-        <h1 class="name">원우영</h1>
-        <p class="bio">건축물과 자연을 좋아하는 고등학교 2학년입니다</p>
+    /* 3. 목표 초기화 버튼 */
+    function initResetButton() {
+      const resetBtn = document.getElementById('reset-goals-btn');
+      if (!resetBtn) return;
 
-        <div class="tags-container">
-            <span class="tag">⚾ 야구</span>
-            <span class="tag">🎤 노래</span>
-            <span class="tag">🏛️ 건축</span>
-        </div>
+      resetBtn.addEventListener('click', () => {
+        if (confirm('모든 만다라트 목표를 초기값으로 복원하시겠습니까?')) {
+          Object.keys(DEFAULT_GOALS).forEach(goalId => {
+            const storageKey = `mandalart_cell_${goalId}`;
+            localStorage.removeItem(storageKey);
 
-        <a href="https://github.com/nickkick921" target="_blank" class="link-btn">
-            https://github.com/nickkick921
-        </a>
-    </div>
-
-    <!-- 3. 만다라트 목표판 (총 12칸) -->
-    <div class="card-box mandalart-card">
-        <h2 class="mandalart-title">🎯 나의 목표</h2>
-        <p class="mandalart-subtitle">칸을 눌러서 고칠 수 있어요</p>
-
-        <div class="mandalart-grid">
-            <div class="mandalart-cell" contenteditable="true" data-index="0">매일 30분 영어 듣기</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="1">수학 오답노트</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="2">주 3회 운동</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="3">독서 월 2권</div>
-
-            <div class="mandalart-cell" contenteditable="true" data-index="4">과학 동아리 발표</div>
-            <!-- 가운데 강조 핵심 목표 -->
-            <div class="mandalart-cell center-cell" contenteditable="true" data-index="center">건축학과 진학</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="5">7시간 수면</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="6">봉사활동 20시간</div>
-
-            <div class="mandalart-cell" contenteditable="true" data-index="7">코딩 포트폴리오</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="8">내신 관리</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="9">건축 스케치 연습</div>
-            <div class="mandalart-cell" contenteditable="true" data-index="10">규칙적인 영양 섭취</div>
-        </div>
-    </div>
-
+            const cell = document.querySelector(`[data-goal-id="${goalId}"]`);
+            if (cell) {
+              cell.innerText = DEFAULT_GOALS[goalId];
+            }
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
