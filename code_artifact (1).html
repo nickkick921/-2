@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원우영 - 자기소개 & 목표</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 전체 배경: 초록색과 연두색 그라데이션 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #1b5e20, #4caf50, #81c784, #aed581);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 28px 16px;
+            color: #2d3748;
+            gap: 18px; /* 카드 사이 간격 */
+        }
+
+        /* 공통 카드 스타일 */
+        .card-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        /* 1. D-Day 카운터 카드 */
+        .dday-card {
+            background: linear-gradient(135deg, #2e7d32, #43a047);
+            color: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            padding: 24px 20px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(27, 94, 32, 0.3);
+        }
+
+        .dday-number {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .dday-label {
+            font-size: 15px;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        /* 2. 자기소개 카드 */
+        .intro-card {
+            padding: 32px 24px;
+        }
+
+        .emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1b4332;
+            margin-bottom: 8px;
+        }
+
+        .bio {
+            font-size: 15px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+
+        .tags-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .tag {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .link-btn {
+            display: block;
+            width: 100%;
+            background-color: #2e7d32;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 13px 16px;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+        }
+
+        .link-btn:hover {
+            background-color: #1b5e20;
+            transform: translateY(-1px);
+        }
+
+        /* 3. 만다라트 목표판 (12개 칸) */
+        .mandalart-card {
+            padding: 24px 18px;
+        }
+
+        .mandalart-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1b4332;
+            margin-bottom: 4px;
+        }
+
+        .mandalart-subtitle {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 18px;
+        }
+
+        /* 4열 x 3행 = 12칸 격자 구조 */
+        .mandalart-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+
+        .mandalart-cell {
+            aspect-ratio: 1 / 1; /* 정사각형 유지 */
+            background-color: #f1f8e9;
+            border: 1.5px solid #dedede;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #2e7d32;
+            line-height: 1.3;
+            word-break: keep-all;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .mandalart-cell:focus {
+            background-color: #ffffff;
+            border-color: #43a047;
+            box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.3);
+        }
+
+        /* 가운데 핵심 목표 칸 (강조) */
+        .mandalart-cell.center-cell {
+            background: linear-gradient(135deg, #2e7d32, #43a047);
+            color: #ffffff;
+            border-color: #1b5e20;
+            font-size: 12.5px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+        }
+
+        .mandalart-cell.center-cell:focus {
+            background: #1b5e20;
+            box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.4);
+        }
+    </style>
+
+    <script>
+        // ==========================================
+        // 🛠️ [설정] D-day 목표 날짜 설정
+        const targetDate = "2027-11-18";
+        // ==========================================
+
+        function updateDday() {
+            const today = new Date();
+            const target = new Date(targetDate);
+            
+            today.setHours(0, 0, 0, 0);
+            target.setHours(0, 0, 0, 0);
+            
+            const diffTime = target - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            const ddayElement = document.getElementById("dday-number");
+            if (diffDays > 0) {
+                ddayElement.textContent = `D-${diffDays}`;
+            } else if (diffDays === 0) {
+                ddayElement.textContent = `D-DAY`;
+            } else {
+                ddayElement.textContent = `D+${Math.abs(diffDays)}`;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            updateDday();
+
+            // 만다라트 12개 칸 저장 및 로드
+            const cells = document.querySelectorAll(".mandalart-cell");
+            cells.forEach((cell) => {
+                const index = cell.getAttribute("data-index");
+                const savedText = localStorage.getItem("mandalart_v2_cell_" + index);
+
+                if (savedText !== null) {
+                    cell.innerText = savedText;
+                }
+
+                cell.addEventListener("input", function () {
+                    localStorage.setItem("mandalart_v2_cell_" + index, cell.innerText);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- 1. D-Day 카운터 카드 -->
+    <div class="dday-card">
+        <div id="dday-number" class="dday-number">D-?</div>
+        <div class="dday-label">수능까지</div>
+    </div>
+
+    <!-- 2. 자기소개 카드 -->
+    <div class="card-box intro-card">
+        <div class="emoji">🌊</div>
+        <h1 class="name">원우영</h1>
+        <p class="bio">건축물과 자연을 좋아하는 고등학교 2학년입니다</p>
+
+        <div class="tags-container">
+            <span class="tag">⚾ 야구</span>
+            <span class="tag">🎤 노래</span>
+            <span class="tag">🏛️ 건축</span>
+        </div>
+
+        <a href="https://github.com/nickkick921" target="_blank" class="link-btn">
+            https://github.com/nickkick921
+        </a>
+    </div>
+
+    <!-- 3. 만다라트 목표판 (총 12칸) -->
+    <div class="card-box mandalart-card">
+        <h2 class="mandalart-title">🎯 나의 목표</h2>
+        <p class="mandalart-subtitle">칸을 눌러서 고칠 수 있어요</p>
+
+        <div class="mandalart-grid">
+            <div class="mandalart-cell" contenteditable="true" data-index="0">매일 30분 영어 듣기</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="1">수학 오답노트</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="2">주 3회 운동</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="3">독서 월 2권</div>
+
+            <div class="mandalart-cell" contenteditable="true" data-index="4">과학 동아리 발표</div>
+            <!-- 가운데 강조 핵심 목표 -->
+            <div class="mandalart-cell center-cell" contenteditable="true" data-index="center">건축학과 진학</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="5">7시간 수면</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="6">봉사활동 20시간</div>
+
+            <div class="mandalart-cell" contenteditable="true" data-index="7">코딩 포트폴리오</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="8">내신 관리</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="9">건축 스케치 연습</div>
+            <div class="mandalart-cell" contenteditable="true" data-index="10">규칙적인 영양 섭취</div>
+        </div>
+    </div>
+
+</body>
+</html>
