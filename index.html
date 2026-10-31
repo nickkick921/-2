@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101525" />
+  <title>나의 작업 공간</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: rgba(22, 31, 53, .82);
+      --line: rgba(255,255,255,.11);
+      --text: #f5f7ff;
+      --muted: #aab4ca;
+      --mint: #9ef0d0;
+      --violet: #b8a5ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { min-height: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 28px 18px;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+      background:
+        radial-gradient(ellipse at 12% 10%, rgba(93, 117, 225, .24), transparent 34%),
+        radial-gradient(ellipse at 88% 82%, rgba(80, 199, 166, .16), transparent 34%),
+        linear-gradient(145deg, #090e1b, #121a2e 56%, #0a1220);
+    }
+
+    button, a { font: inherit; }
+
+    .shell {
+      width: min(100%, 980px);
+      position: relative;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 54px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #dfe7ff;
+      font-size: .9rem;
+      font-weight: 750;
+      letter-spacing: .04em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(158,240,208,.22), rgba(184,165,255,.2));
+      color: var(--mint);
+      font-size: 1.1rem;
+    }
+
+    .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tool-button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      color: #dfe6f8;
+      background: rgba(255,255,255,.045);
+      cursor: pointer;
+      font-size: .82rem;
+      font-weight: 700;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+
+    .tool-button:hover {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.25);
+      transform: translateY(-1px);
+    }
+
+    .intro { text-align: center; margin: 0 auto 42px; }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--mint);
+      font-size: .75rem;
+      font-weight: 850;
+      letter-spacing: .22em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.15rem, 6vw, 4rem);
+      line-height: 1.15;
+      letter-spacing: -.055em;
+    }
+
+    .intro p:last-child {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: clamp(.94rem, 2vw, 1.06rem);
+      line-height: 1.7;
+    }
+
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .destination {
+      --accent: var(--mint);
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      color: var(--text);
+      text-decoration: none;
+      background: linear-gradient(150deg, rgba(255,255,255,.085), rgba(255,255,255,.025)), var(--panel);
+      box-shadow: 0 22px 55px rgba(0,0,0,.18);
+      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+      isolation: isolate;
+    }
+
+    .destination.game { --accent: var(--violet); }
+
+    .destination::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 220px;
+      height: 220px;
+      right: -68px;
+      top: -78px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: .12;
+      filter: blur(2px);
+      transition: transform .3s ease, opacity .3s ease;
+    }
+
+    .destination:hover {
+      transform: translateY(-6px);
+      border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+      box-shadow: 0 28px 65px rgba(0,0,0,.28);
+    }
+
+    .destination:hover::before { transform: scale(1.2); opacity: .18; }
+
+    .icon-box {
+      width: 66px;
+      height: 66px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 30px;
+      border: 1px solid color-mix(in srgb, var(--accent) 33%, transparent);
+      border-radius: 20px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 11%, transparent);
+    }
+
+    .icon-box svg { width: 34px; height: 34px; }
+
+    .category {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    .destination h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3.4vw, 2.05rem);
+      letter-spacing: -.045em;
+    }
+
+    .description {
+      max-width: 340px;
+      margin: 12px 0 26px;
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.7;
+    }
+
+    .destination-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: #e8ecf8;
+      font-size: .86rem;
+      font-weight: 750;
+    }
+
+    .path {
+      color: #8e9ab4;
+      font-size: .75rem;
+      font-weight: 550;
+    }
+
+    .arrow {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #101525;
+      background: var(--accent);
+      font-size: 1.15rem;
+      transition: transform .2s ease;
+    }
+
+    .destination:hover .arrow { transform: translateX(3px); }
+
+    .footnote {
+      margin: 25px 0 0;
+      color: #7f8ba6;
+      text-align: center;
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    #notice {
+      min-height: 20px;
+      margin-top: 10px;
+      color: var(--mint);
+      text-align: center;
+      font-size: .8rem;
+    }
+
+    @media (max-width: 680px) {
+      body { padding: 20px 14px; }
+      .topbar { align-items: flex-start; flex-direction: column; margin-bottom: 42px; }
+      .tools { width: 100%; }
+      .tool-button { flex: 1; }
+      .destinations { grid-template-columns: 1fr; gap: 14px; }
+      .destination { min-height: 270px; padding: 24px; }
+      .icon-box { margin-bottom: 24px; }
+      .intro { margin-bottom: 30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span>MY SPACE</span></div>
+      <div class="tools" aria-label="HTML 도구">
+        <button class="tool-button" id="copyButton" type="button">코드 복사</button>
+        <button class="tool-button" id="downloadButton" type="button">HTML 다운로드</button>
+      </div>
+    </header>
+
+    <section class="intro" aria-labelledby="pageTitle">
+      <p class="eyebrow">WELCOME TO MY SPACE</p>
+      <h1 id="pageTitle">무엇을 시작해 볼까요?</h1>
+      <p>생각을 정리하고, 새로운 즐거움을 발견하는 나만의 공간입니다.</p>
+    </section>
+
+    <nav class="destinations" aria-label="서비스 선택">
+      <a class="destination mandalart" href="./goal/index.html">
+        <div class="icon-box" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="10" height="10" rx="2"/><rect x="16" y="4" width="8" height="8" rx="1.5"/><rect x="26" y="4" width="10" height="10" rx="2"/>
+            <rect x="4" y="16" width="8" height="8" rx="1.5"/><rect x="14" y="14" width="12" height="12" rx="2"/><rect x="28" y="16" width="8" height="8" rx="1.5"/>
+            <rect x="4" y="26" width="10" height="10" rx="2"/><rect x="16" y="28" width="8" height="8" rx="1.5"/><rect x="26" y="26" width="10" height="10" rx="2"/>
+          </svg>
+        </div>
+        <p class="category">PLAN · GROW</p>
+        <h2>만다라트</h2>
+        <p class="description">목표를 구체적으로 나누고, 작은 실천을 모아 나만의 계획을 완성해 보세요.</p>
+        <div class="destination-footer">
+          <span>목표와 계획 정리하기<br><span class="path">./goal/index.html</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
+
+      <a class="destination game" href="./game/index.html">
+        <div class="icon-box" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 13h16a7 7 0 0 1 6.8 5.3l2 8.2a4.5 4.5 0 0 1-7.4 4.3l-4.1-3.6H14.7l-4.1 3.6a4.5 4.5 0 0 1-7.4-4.3l2-8.2A7 7 0 0 1 12 13Z"/>
+            <path d="M12 19v8M8 23h8M27 21h.01M32 25h.01" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <p class="category">PLAY · DISCOVER</p>
+        <h2>게임</h2>
+        <p class="description">직접 만든 다양한 게임을 즐겨 보세요. 새로운 게임도 이 공간에 계속 추가할 수 있습니다.</p>
+        <div class="destination-footer">
+          <span>게임 즐기러 가기<br><span class="path">./game/index.html</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
+    </nav>
+
+    <p class="footnote">원하는 메뉴를 선택하면 해당 공간으로 이동합니다.</p>
+    <div id="notice" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    // 현재 페이지의 HTML 전체를 문자열로 만듭니다.
+    function getHtmlSource() {
+      return '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    }
+
+    async function copyHtml() {
+      const source = getHtmlSource();
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(source);
+        } else {
+          const helper = document.createElement('textarea');
+          helper.value = source;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.appendChild(helper);
+          helper.select();
+          const copied = document.execCommand('copy');
+          helper.remove();
+          if (!copied) throw new Error('복사를 완료하지 못했습니다.');
+        }
+        showNotice('HTML 코드 전체를 복사했습니다.');
+      } catch (error) {
+        showNotice('자동 복사에 실패했습니다. 브라우저 권한을 확인해 주세요.');
+      }
+    }
+
+    function downloadHtml() {
+      const blob = new Blob([getHtmlSource()], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'index.html';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showNotice('index.html 다운로드를 시작했습니다.');
+    }
+
+    function showNotice(message) {
+      const notice = document.getElementById('notice');
+      notice.textContent = message;
+    }
+
+    document.getElementById('copyButton').addEventListener('click', copyHtml);
+    document.getElementById('downloadButton').addEventListener('click', downloadHtml);
+  </script>
+</body>
+</html>
